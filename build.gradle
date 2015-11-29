@@ -42,6 +42,9 @@ project.ext {
 }
 
 repositories {
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots'
+    }
     mavenCentral()
 }
 
@@ -53,6 +56,10 @@ dependencies {
     compile 'org.springframework.data:spring-data-jpa:1.8.2.RELEASE'
     compile 'org.hsqldb:hsqldb:2.3.2'
     compile 'com.google.code.gson:gson:2.5'
+    compile "org.igniterealtime.smack:smack-java7:4.1.0"
+    compile "org.igniterealtime.smack:smack-tcp:4.1.0"
+    compile "org.igniterealtime.smack:smack-im:4.1.0"
+    compile "org.igniterealtime.smack:smack-extensions:4.1.0"
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile 'org.springframework:spring-test:' + springVersion
