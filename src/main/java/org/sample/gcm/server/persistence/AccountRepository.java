@@ -7,8 +7,9 @@ import java.util.List;
 /**
  * Created by Carlo on 10/01/2016.
  */
-public interface AccountRepository extends CrudRepository<String, Account>{
+public interface AccountRepository extends CrudRepository<Account, String>{
 
-    public List<Account> findById(String id);
+    Account findById(String id);
+    Account findByAccountName(String accountName);
 
 }

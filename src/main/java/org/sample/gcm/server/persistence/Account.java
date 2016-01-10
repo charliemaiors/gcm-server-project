@@ -2,10 +2,7 @@ package org.sample.gcm.server.persistence;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Carlo on 10/01/2016.
@@ -34,7 +31,25 @@ public class Account implements Serializable {
         this.configurations = configurations;
     }
 
+    public Account(String accountName, String accountMail) {
+        this.accountName = accountName;
+        this.accountMail = accountMail;
+        this.registrationIds = new HashSet<String>();
+        this.configurations = new ArrayList<Configuration>();
+    }
 
+    public Account() {
+        this.registrationIds = new HashSet<String>();
+        this.configurations = new ArrayList<Configuration>();
+    }
+
+    public Set<String> getRegistrationIds() {
+        return registrationIds;
+    }
+
+    public void setRegistrationIds(Set<String> registrationIds) {
+        this.registrationIds = registrationIds;
+    }
 
     public String getId() {
         return id;
