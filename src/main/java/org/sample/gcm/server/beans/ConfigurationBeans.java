@@ -1,6 +1,9 @@
 package org.sample.gcm.server.beans;
 
-import org.jivesoftware.smack.XMPPConnection;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.sample.gcm.server.json.CustomData;
+import org.sample.gcm.server.json.CustomDataDeserializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,9 +14,9 @@ import org.springframework.context.annotation.Configuration;
 public class ConfigurationBeans {
 
     @Bean
-    public XMPPConnection getConnectionConfiguration(){
-
-        return null;
+    public Gson getMapper(){
+        return new GsonBuilder().registerTypeAdapter(CustomData.class,new CustomDataDeserializer())
+                .create();
     }
 
 }
