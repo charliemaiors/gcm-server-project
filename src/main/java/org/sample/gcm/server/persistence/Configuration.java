@@ -6,11 +6,11 @@ package org.sample.gcm.server.persistence;
 public class Configuration {
 
     private String configurationName;
-    private String  configurationType;
+    private String  configurationValue;
 
-    public Configuration(String configurationName, String configurationType) {
+    public Configuration(String configurationName, String configurationValue) {
         this.configurationName = configurationName;
-        this.configurationType = configurationType;
+        this.configurationValue = configurationValue;
     }
 
     public String getConfigurationName() {
@@ -21,11 +21,11 @@ public class Configuration {
         this.configurationName = configurationName;
     }
 
-    public String getConfigurationType() {
-        return configurationType;
+    public String getConfigurationValue() {
+        return configurationValue;
     }
 
-    public void setConfigurationType(String configurationType) {
-        this.configurationType = configurationType;
+    public void setConfigurationValue(String configurationValue) {
+        this.configurationValue = configurationValue;
     }
 }

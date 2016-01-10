@@ -2,7 +2,9 @@ package org.sample.gcm.server.persistence;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -15,6 +17,8 @@ public class Account implements Serializable {
     private String id;
     private String accountName;
     private String accountMail;
+    @ElementCollection(fetch = FetchType.EAGER,targetClass = String.class)
+    private Set<String> registrationIds;
     @ElementCollection(fetch = FetchType.EAGER,targetClass = Configuration.class)
     private List<Configuration> configurations;
 
@@ -23,11 +27,14 @@ public class Account implements Serializable {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Account(String accountName, String accountMail, List<Configuration> configurations) {
+    public Account(String accountName, String accountMail, Set<String> registrationIds, List<Configuration> configurations) {
         this.accountName = accountName;
         this.accountMail = accountMail;
+        this.registrationIds = registrationIds;
         this.configurations = configurations;
     }
+
+
 
     public String getId() {
         return id;
@@ -59,5 +66,16 @@ public class Account implements Serializable {
 
     public void setConfigurations(List<Configuration> configurations) {
         this.configurations = configurations;
+    }
+
+    public LinkedHashMap<String, String> toCustomData(){
+
+        LinkedHashMap<String, String> res = new LinkedHashMap<String, String>();
+
+        for(Configuration config: configurations){
+            res.put(config.getConfigurationName(),config.getConfigurationValue());
+        }
+
+        return res;
     }
 }

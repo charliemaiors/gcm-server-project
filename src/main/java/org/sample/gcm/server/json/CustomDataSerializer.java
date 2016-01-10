@@ -11,11 +11,11 @@ import java.util.LinkedHashMap;
 /**
  * Created by Carlo on 29/11/2015.
  */
-public class CustomDataDeserializer implements JsonSerializer<CustomData>{
+public class CustomDataSerializer implements JsonSerializer<CustomData>{
     @Override
     public JsonElement serialize(CustomData src, Type typeOfSrc, JsonSerializationContext context) {
 
         typeOfSrc = new TypeToken<LinkedHashMap<String,String>>(){}.getType();
-        return context.serialize(src.getValues());
+        return context.serialize(src.getValues(),typeOfSrc);
     }
 }
