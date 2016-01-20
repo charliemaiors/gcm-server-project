@@ -31,7 +31,7 @@ public class GcmRestClient {
         this.url = properties.getProperty("");
     }
 
-    public
+
 
 
 }
