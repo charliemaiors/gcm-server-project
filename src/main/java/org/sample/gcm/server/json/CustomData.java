@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 /**
  * Created by Carlo on 29/11/2015.
  */
-public class CustomData implements Data{
+public class CustomData {
 
     private LinkedHashMap<String,String> values;
 

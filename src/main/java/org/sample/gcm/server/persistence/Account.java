@@ -1,5 +1,7 @@
 package org.sample.gcm.server.persistence;
 
+import org.sample.gcm.server.json.CustomData;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -83,7 +85,7 @@ public class Account implements Serializable {
         this.configurations = configurations;
     }
 
-    public LinkedHashMap<String, String> toCustomData(){
+    public CustomData toCustomData(){
 
         LinkedHashMap<String, String> res = new LinkedHashMap<String, String>();
 
@@ -91,6 +93,6 @@ public class Account implements Serializable {
             res.put(config.getConfigurationName(),config.getConfigurationValue());
         }
 
-        return res;
+        return new CustomData(res);
     }
 }
