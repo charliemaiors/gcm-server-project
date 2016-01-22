@@ -1,10 +1,12 @@
 package org.sample.gcm.server.configurations;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Carlo on 20/01/2016.
  */
+@Service
 @ConfigurationProperties (locations = "classpath:gcm-project.properties",prefix = "gcm")
 public class Gcm {
 

@@ -123,7 +123,7 @@ function end {
     exit
 }
 function usage {
-    echo -e "Open-Baton\n"
+    echo -e "Gcm-Server\n"
     echo -e "Usage:\n\t ./gcm-server.sh [compile|start|stop|test|kill|clean]"
 }
 

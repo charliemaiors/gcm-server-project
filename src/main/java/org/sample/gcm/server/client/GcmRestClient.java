@@ -1,6 +1,7 @@
 package org.sample.gcm.server.client;
 
 import com.google.gson.Gson;
+import org.sample.gcm.server.configurations.Gcm;
 import org.sample.gcm.server.json.CustomData;
 import org.sample.gcm.server.json.GcmResponse;
 import org.sample.gcm.server.json.Message;
@@ -31,16 +32,15 @@ public class GcmRestClient {
 
     @Autowired private Gson mapper;
     @Autowired private AccountRepository repository;
+    @Autowired private Gcm gcm;
     private Properties properties;
     private Logger logger;
-    private String url;
     private RestTemplate template;
 
     @PostConstruct
     private void init() throws IOException {
         this.logger = LoggerFactory.getLogger(this.getClass());
         this.properties = ConfigReader.readConfig();
-        this.url = properties.getProperty("gcm.server");
         this.template = new RestTemplate();
     }
 
@@ -50,19 +50,19 @@ public class GcmRestClient {
         logger.debug("Sending configurations to account " + accountName);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("Authorization", "key=" + properties.getProperty("gcm.apiKeys"));
+        headers.add("Authorization", "key=" + gcm.getApiKeys());
 
         Account account = repository.findByAccountName(accountName);
         CustomData datas = account.toCustomData();
 
         for (String id : account.getRegistrationIds()){
 
-            Message message = new Message(id,"config",new Long("100"),true,datas);
+            Message message = new Message(id,"config_push",new Long("100"),true,datas);
             HttpEntity<String> sendEntity = new HttpEntity<>(mapper.toJson(message,Message.class),headers);
-            ResponseEntity<String> sendResponse = template.exchange(url, HttpMethod.POST,sendEntity,String.class);
+            ResponseEntity<String> sendResponse = template.exchange(gcm.getServer(), HttpMethod.POST,sendEntity,String.class);
 
             if (sendResponse.getStatusCode() == HttpStatus.UNAUTHORIZED){
-                logger.debug("API KEY expired: " + properties.getProperty("gcm.apiKeys"));
+                logger.debug("API KEY expired: " + gcm.getApiKeys());
                 System.exit(0);
             }
             responses.add(mapper.fromJson(sendResponse.getBody(),GcmResponse.class));
@@ -71,6 +71,8 @@ public class GcmRestClient {
 
         return responses;
     }
+
+    //TODO aggiungere creazione di gruppi per account
 
 
 }
