@@ -1,6 +1,6 @@
 package org.sample.gcm.server.beans;
 
-import com.google.gson.Gson;
+import org.sample.gcm.server.client.GcmRestClient;
 import org.sample.gcm.server.json.IncomingConfiguration;
 import org.sample.gcm.server.json.IncomingRegistration;
 import org.sample.gcm.server.persistence.Account;
@@ -20,12 +20,14 @@ import java.util.Set;
 
 /**
  * Created by Carlo on 10/01/2016.
+ * A stupid bean which receives new registrations and push them to the other devices
  */
 @RestController
 @RequestMapping(consumes = "application/json",value = "/gcm/registration")
 public class Registration {
 
     @Autowired private AccountRepository repository;
+    @Autowired private GcmRestClient client;
     private Logger logger;
 
     @PostConstruct
@@ -66,9 +68,18 @@ public class Registration {
         }
 
         Account target = repository.findByAccountName(configurations.getAccountName());
+        LinkedHashMap<String,String>  targetConfig = configurations.getConfigurations();
+        LinkedHashMap<String,String> accountConfig = target.toCustomData().getValues();
 
+        for (String keyConfig : targetConfig.keySet()){
+            accountConfig.put(keyConfig, targetConfig.get(keyConfig));
+        }
 
+        List<Configuration> configurationList = target.fromCustomValues(accountConfig);
+        target.setConfigurations(configurationList);
+        repository.save(target);
 
+        client.publicConfigurations(configurations.getAccountName());
 
         return true;
     }

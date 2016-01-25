@@ -95,4 +95,19 @@ public class Account implements Serializable {
 
         return new CustomData(res);
     }
+
+    public List<Configuration> fromCustomValues(LinkedHashMap<String,String> configurationValues){
+
+        List<Configuration> res = new ArrayList<>();
+
+        for (String key : configurationValues.keySet()){
+
+            String value = configurationValues.get(key);
+            Configuration config = new Configuration(key,value);
+            res.add(config);
+
+        }
+
+        return res;
+    }
 }
