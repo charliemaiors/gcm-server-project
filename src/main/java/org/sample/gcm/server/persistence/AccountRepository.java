@@ -10,6 +10,6 @@ import java.util.List;
 public interface AccountRepository extends CrudRepository<Account, String>{
 
     Account findById(String id);
-    Account findByAccountName(String accountName);
+    Account findByAccountMail(String accountMail);
 
 }

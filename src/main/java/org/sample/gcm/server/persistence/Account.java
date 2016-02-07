@@ -14,7 +14,6 @@ public class Account implements Serializable {
 
     @Id
     private String id;
-    private String accountName;
     private String accountMail;
     @ElementCollection(fetch = FetchType.EAGER,targetClass = String.class)
     private Set<String> registrationIds;
@@ -26,15 +25,13 @@ public class Account implements Serializable {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Account(String accountName, String accountMail, Set<String> registrationIds, List<Configuration> configurations) {
-        this.accountName = accountName;
+    public Account(String accountMail, Set<String> registrationIds, List<Configuration> configurations) {
         this.accountMail = accountMail;
         this.registrationIds = registrationIds;
         this.configurations = configurations;
     }
 
-    public Account(String accountName, String accountMail) {
-        this.accountName = accountName;
+    public Account(String accountMail) {
         this.accountMail = accountMail;
         this.registrationIds = new HashSet<String>();
         this.configurations = new ArrayList<Configuration>();
@@ -59,14 +56,6 @@ public class Account implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getAccountName() {
-        return accountName;
-    }
-
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
     }
 
     public String getAccountMail() {

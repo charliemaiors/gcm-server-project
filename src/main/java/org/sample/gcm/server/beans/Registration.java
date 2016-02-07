@@ -39,10 +39,10 @@ public class Registration {
     public RegistrationEnum registerNewDevice(@RequestBody IncomingRegistration registration){
 
         logger.debug("Received new registration " + registration.toString());
-        Account targetAccount = repository.findByAccountName(registration.getAccountName());
+        Account targetAccount = repository.findByAccountMail(registration.getAccountMail());
         try {
             if (targetAccount == null) {
-                targetAccount = new Account(registration.getAccountName(),registration.getAccountMail());
+                targetAccount = new Account(registration.getAccountMail());
                 Set<String> regids = targetAccount.getRegistrationIds();
                 regids.add(registration.getRegistrationId());
                 targetAccount.setRegistrationIds(regids);
@@ -67,7 +67,7 @@ public class Registration {
             return false;
         }
 
-        Account target = repository.findByAccountName(configurations.getAccountName());
+        Account target = repository.findByAccountMail(configurations.);
         LinkedHashMap<String,String>  targetConfig = configurations.getConfigurations();
         LinkedHashMap<String,String> accountConfig = target.toCustomData().getValues();
 
@@ -79,7 +79,7 @@ public class Registration {
         target.setConfigurations(configurationList);
         repository.save(target);
 
-        client.publicConfigurations(configurations.getAccountName());
+        client.publicConfigurations(configurations.getAccountMail());
 
         return true;
     }

@@ -7,23 +7,23 @@ import java.util.LinkedHashMap;
  */
 public class IncomingConfiguration {
 
-    private String accountName;
+    private String accountMail;
     private LinkedHashMap<String,String> configurations;
 
-    public IncomingConfiguration(String accountName, LinkedHashMap<String, String> configurations) {
-        this.accountName = accountName;
+    public IncomingConfiguration(String accountMail, LinkedHashMap<String, String> configurations) {
+        this.accountMail = accountMail;
         this.configurations = configurations;
     }
 
     public IncomingConfiguration() {
     }
 
-    public String getAccountName() {
-        return accountName;
+    public String getAccountMail() {
+        return accountMail;
     }
 
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
+    public void setAccountMail(String accountMail) {
+        this.accountMail = accountMail;
     }
 
     public LinkedHashMap<String, String> getConfigurations() {

@@ -5,22 +5,15 @@ package org.sample.gcm.server.json;
  */
 public class IncomingRegistration {
 
-    private String accountName;
     private String accountMail;
     private String registrationId;
 
-    public IncomingRegistration(String accountName, String accountMail, String registrationId) {
-        this.accountName = accountName;
+    public IncomingRegistration(String accountMail, String registrationId) {
         this.accountMail = accountMail;
         this.registrationId = registrationId;
     }
 
-    public String getAccountName() {
-        return accountName;
-    }
-
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
+    public IncomingRegistration() {
     }
 
     public String getAccountMail() {
