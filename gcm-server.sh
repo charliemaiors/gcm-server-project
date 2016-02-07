@@ -15,6 +15,9 @@ function start_mysql_linux {
     sudo service mysql start
 }
 
+function install_mysql {
+    sudo apt-get install mysql-server-core-5.6
+}
 
 function check_mysql {
     if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -56,7 +59,7 @@ function check_already_running {
 }
 
 function init {
-    if [ ! -f $_nubomedia_config_file ]; then
+    if [ ! -f ${_gcm_config_file} ]; then
         if [ $EUID != 0 ]; then
             echo "creating the directory and copying the file"
             sudo -E sh -c "mkdir /etc/nubomedia; cp ${_gcm_base}/src/main/resources/paas.properties ${_gcm_config_file}"
@@ -65,12 +68,21 @@ function init {
             echo "creating the directory"
             mkdir /etc/nubomedia
             echo "copying the file"
-            cp ${_gcm_base}/src/main/resources/paas.properties ${_gcm_config_file}
+            cp ${_gcm_base}/src/main/resources/gcm-project.properties ${_gcm_config_file}
         fi
     else
         echo "Properties file already exist"
     fi
+
+    export dbchoice
+    read -p "Do you want real persistency, not hsqldb [y/n]?" dbchoice
+    case $dbchoice in
+
+        [y]* ) install_mysql ; start_mysql_linux ; check_mysql ; break;;
+        [n]* ) exit ;;
+    esac
 }
+
 
 function start {
 
