@@ -12,11 +12,11 @@ function start_mysql_osx {
 }
 
 function start_mysql_linux {
-    sudo service mysql start
+    sudo -E sh -c "service mysql start"
 }
 
 function install_mysql {
-    sudo apt-get install mysql-server-core-5.6
+    sudo -E sh -c "apt-get install mysql-server-core-5.6"
 }
 
 function check_mysql {
