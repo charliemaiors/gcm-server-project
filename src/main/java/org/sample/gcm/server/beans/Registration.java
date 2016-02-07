@@ -67,7 +67,7 @@ public class Registration {
             return false;
         }
 
-        Account target = repository.findByAccountMail(configurations.);
+        Account target = repository.findByAccountMail(configurations.getAccountMail());
         LinkedHashMap<String,String>  targetConfig = configurations.getConfigurations();
         LinkedHashMap<String,String> accountConfig = target.toCustomData().getValues();
 
