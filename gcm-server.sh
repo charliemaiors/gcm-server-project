@@ -62,11 +62,10 @@ function init {
     if [ ! -f ${_gcm_config_file} ]; then
         if [ $EUID != 0 ]; then
             echo "creating the directory and copying the file"
-            sudo -E sh -c "mkdir /etc/nubomedia; cp ${_gcm_base}/src/main/resources/paas.properties ${_gcm_config_file}"
-            #echo "copying the file, insert the administrator password" | sudo -kS cp ${_nubomedia_paas_base}/src/main/resources/paas.properties ${_nubomedia_config_file}
+            sudo -E sh -c "mkdir /etc/gcm-server; cp ${_gcm_base}/src/main/resources/gcm-project.properties ${_gcm_config_file}"
         else
             echo "creating the directory"
-            mkdir /etc/nubomedia
+            mkdir /etc/gcm-server
             echo "copying the file"
             cp ${_gcm_base}/src/main/resources/gcm-project.properties ${_gcm_config_file}
         fi
