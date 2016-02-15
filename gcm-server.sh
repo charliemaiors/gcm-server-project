@@ -4,7 +4,7 @@ source ./gradle.properties
 
 _version=${version}
 
-_gcm_base="/opt/gcm-server/"
+_gcm_base=$(pwd)
 _gcm_config_file=/etc/gcm-server/gcm-project.properties
 
 function start_mysql_osx {
@@ -62,7 +62,7 @@ function init {
     if [ ! -f ${_gcm_config_file} ]; then
         if [ $EUID != 0 ]; then
             echo "creating the directory and copying the file"
-            sudo -E sh -c "mkdir /etc/gcm-server; cp ${_gcm_base}/src/main/resources/gcm-project.properties ${_gcm_config_file}"
+            sudo -E sh -c "mkdir -p /etc/gcm-server; cp ${_gcm_base}/src/main/resources/gcm-project.properties ${_gcm_config_file}"
         else
             echo "creating the directory"
             mkdir /etc/gcm-server
