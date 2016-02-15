@@ -52,7 +52,7 @@ public class GcmRestClient {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("Authorization", "key=" + gcm.getApiKeys());
 
-        Account account = repository.findByAccountName(accountName);
+        Account account = repository.findByAccountMail(accountName);
         CustomData datas = account.toCustomData();
 
         for (String id : account.getRegistrationIds()){
