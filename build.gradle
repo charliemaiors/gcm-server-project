@@ -41,22 +41,10 @@ project.ext {
     //------------------------------------------------//
 }
 
-repositories {
-    maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots'
-    }
-    mavenCentral()
-}
-
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-test:' + springBootVersion
     compile 'org.springframework.boot:spring-boot:' + springBootVersion
     compile 'org.springframework.boot:spring-boot-starter-web:' + springBootVersion
-    compile "org.igniterealtime.smack:smack-java7:4.1.0"
-    compile "org.igniterealtime.smack:smack-tcp:4.1.0"
-    compile "org.igniterealtime.smack:smack-im:4.1.0"
-    compile "org.ignitereal time.smack:smack-android:4.1.0"
-    compile "org.igniterealtime.smack:smack-extensions:4.1.0"
     compile 'org.hibernate:hibernate-entitymanager:4.3.10.Final'
     compile 'org.springframework.data:spring-data-jpa:1.8.2.RELEASE'
     compile 'org.hsqldb:hsqldb:2.3.2'
