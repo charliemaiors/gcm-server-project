@@ -41,6 +41,10 @@ project.ext {
     //------------------------------------------------//
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-test:' + springBootVersion
     compile 'org.springframework.boot:spring-boot:' + springBootVersion
