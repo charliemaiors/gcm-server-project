@@ -168,6 +168,8 @@ do
             compile ;;
         "kill" )
             kill ;;
+        "init" )
+            init ;;
         "test" )
             tests ;;
         * )
