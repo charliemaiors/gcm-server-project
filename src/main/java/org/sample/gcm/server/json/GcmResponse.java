@@ -1,6 +1,6 @@
 package org.sample.gcm.server.json;
 
-import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by Carlo on 20/01/2016.
@@ -11,9 +11,9 @@ public class GcmResponse {
     private int success;
     private int failure;
     private int canonical_ids;
-    private LinkedHashMap<String, String> results;
+    private Map<String, String> results;
 
-    public GcmResponse(String multicast_id, int success, int failure, int canonical_ids, LinkedHashMap<String, String> results) {
+    public GcmResponse(String multicast_id, int success, int failure, int canonical_ids, Map<String, String> results) {
         this.multicast_id = multicast_id;
         this.success = success;
         this.failure = failure;
@@ -56,11 +56,11 @@ public class GcmResponse {
         this.canonical_ids = canonical_ids;
     }
 
-    public LinkedHashMap<String, String> getResults() {
+    public Map<String, String> getResults() {
         return results;
     }
 
-    public void setResults(LinkedHashMap<String, String> results) {
+    public void setResults(Map<String, String> results) {
         this.results = results;
     }
 }
