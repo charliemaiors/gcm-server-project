@@ -21,6 +21,9 @@ public class Configuration {
         this.configurationValue = configurationValue;
     }
 
+    public Configuration() {
+    }
+
     @PrePersist
     private void ensureId(){
         this.id = UUID.randomUUID().toString();
