@@ -41,11 +41,9 @@ public class Registration {
         logger.info("Received new registration " + registration.toString());
         Account targetAccount = repository.findByAccountMail(registration.getAccountMail());
         try {
-            if (targetAccount == null) {
-                targetAccount = new Account(registration.getAccountMail());
-                Set<String> regids = targetAccount.getRegistrationIds();
+            if (targetAccount == null){
+                Set<String> regids = new HashSet<>();
                 regids.add(registration.getRegistrationId());
-                targetAccount.setRegistrationIds(regids);
                 List<Configuration> configurationList = new ArrayList<>();
 
                 for (int i = 0; i < 5; i++){
@@ -54,7 +52,7 @@ public class Registration {
                     configurationList.add(tmp);
                 }
 
-                targetAccount.setConfigurations(configurationList);
+                targetAccount = new Account(registration.getAccountMail(),regids,configurationList);
                 repository.save(targetAccount);
                 client.publicConfigurations(registration.getAccountMail());
                 logger.info("[REGISTRATION] registered new device " + registration.getAccountMail()  + " at " + new Date().getTime());
