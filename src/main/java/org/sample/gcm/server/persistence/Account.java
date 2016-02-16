@@ -17,7 +17,7 @@ public class Account implements Serializable {
     private String accountMail;
     @ElementCollection(fetch = FetchType.EAGER,targetClass = String.class)
     private Set<String> registrationIds;
-    @ElementCollection(fetch = FetchType.EAGER,targetClass = Configuration.class)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Configuration> configurations;
 
     @PrePersist
