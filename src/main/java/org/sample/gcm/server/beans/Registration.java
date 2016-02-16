@@ -37,10 +37,9 @@ public class Registration {
     @RequestMapping(value = "/device",method = RequestMethod.POST)
     public RegistrationEnum registerNewDevice(@RequestBody IncomingRegistration registration){
 
-        logger.info("[REGISTRATION] registering new device " + registration.getAccountMail());
-        logger.debug("Received new registration " + registration.toString());
+        logger.info("[REGISTRATION] registering new device " + registration.getAccountMail() + " at " + new Date().getTime());
+        logger.info("Received new registration " + registration.toString());
         Account targetAccount = repository.findByAccountMail(registration.getAccountMail());
-        logger.debug("DEBUG targetAccount" + targetAccount.toString());
         try {
             if (targetAccount == null) {
                 targetAccount = new Account(registration.getAccountMail());
@@ -54,6 +53,7 @@ public class Registration {
                     Configuration tmp = new Configuration("Config " + 1, UUID.randomUUID().toString());
                     configurationList.add(tmp);
                 }
+
                 targetAccount.setConfigurations(configurationList);
                 repository.save(targetAccount);
                 client.publicConfigurations(registration.getAccountMail());
