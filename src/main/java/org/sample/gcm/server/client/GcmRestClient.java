@@ -63,7 +63,7 @@ public class GcmRestClient {
             if (sendResponse.getStatusCode() == HttpStatus.UNAUTHORIZED){
                 logger.debug("API KEY expired: " + gcm.getApiKeys());
             }
-            logger.debug("RESPONSE BODY " + sendResponse.getBody());
+            logger.info("RESPONSE BODY " + sendResponse.getBody());
             responses.add(mapper.fromJson(sendResponse.getBody(),GcmResponse.class));
 
         }
