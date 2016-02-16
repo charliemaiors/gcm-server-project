@@ -1,5 +1,6 @@
 package org.sample.gcm.server.json;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.Map;
@@ -13,9 +14,9 @@ public class GcmResponse {
     private int success;
     private int failure;
     private int canonical_ids;
-    private JsonObject results;
+    private JsonArray results;
 
-    public GcmResponse(String multicast_id, int success, int failure, int canonical_ids, JsonObject results) {
+    public GcmResponse(String multicast_id, int success, int failure, int canonical_ids, JsonArray results) {
         this.multicast_id = multicast_id;
         this.success = success;
         this.failure = failure;
@@ -58,11 +59,11 @@ public class GcmResponse {
         this.canonical_ids = canonical_ids;
     }
 
-    public JsonObject getResults() {
+    public JsonArray getResults() {
         return results;
     }
 
-    public void setResults(JsonObject results) {
+    public void setResults(JsonArray results) {
         this.results = results;
     }
 }
