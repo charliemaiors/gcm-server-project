@@ -19,10 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created by Carlo on 10/01/2016.
@@ -47,6 +44,7 @@ public class GcmRestClient {
     public List<GcmResponse> publicConfigurations(String accountName){
 
         List<GcmResponse> responses = new ArrayList<>();
+        logger.info("[GCM-REST-CLIENT] sending new configurations for " + accountName + " at " + new Date().getTime());
         logger.debug("Sending configurations to account " + accountName);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -56,18 +54,19 @@ public class GcmRestClient {
         CustomData datas = account.toCustomData();
 
         for (String id : account.getRegistrationIds()){
-
+            logger.info("[GCM-REST-CLIENT] sending to " + id + " at " + new Date().getTime());
             Message message = new Message(id,"config_push",new Long("100"),true,datas);
             HttpEntity<String> sendEntity = new HttpEntity<>(mapper.toJson(message,Message.class),headers);
             ResponseEntity<String> sendResponse = template.exchange(gcm.getServer(), HttpMethod.POST,sendEntity,String.class);
 
             if (sendResponse.getStatusCode() == HttpStatus.UNAUTHORIZED){
                 logger.debug("API KEY expired: " + gcm.getApiKeys());
-                System.exit(0);
             }
             responses.add(mapper.fromJson(sendResponse.getBody(),GcmResponse.class));
 
         }
+
+        logger.info("[GCM-REST-CLIENT] sent to " + accountName + " at " + new Date().getTime());
 
         return responses;
     }

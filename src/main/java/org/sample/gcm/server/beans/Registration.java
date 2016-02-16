@@ -1,6 +1,7 @@
 package org.sample.gcm.server.beans;
 
 import org.sample.gcm.server.client.GcmRestClient;
+import org.sample.gcm.server.json.CustomData;
 import org.sample.gcm.server.json.IncomingConfiguration;
 import org.sample.gcm.server.json.IncomingRegistration;
 import org.sample.gcm.server.persistence.Account;
@@ -14,9 +15,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Carlo on 10/01/2016.
@@ -38,6 +37,7 @@ public class Registration {
     @RequestMapping(value = "/device",method = RequestMethod.POST)
     public RegistrationEnum registerNewDevice(@RequestBody IncomingRegistration registration){
 
+        logger.info("[REGISTRATION] registering new device " + registration.getAccountMail());
         logger.debug("Received new registration " + registration.toString());
         Account targetAccount = repository.findByAccountMail(registration.getAccountMail());
         try {
@@ -46,17 +46,28 @@ public class Registration {
                 Set<String> regids = targetAccount.getRegistrationIds();
                 regids.add(registration.getRegistrationId());
                 targetAccount.setRegistrationIds(regids);
+                List<Configuration> configurationList = new ArrayList<>();
+
+                for (int i = 0; i < 5; i++){
+
+                    Configuration tmp = new Configuration("Config " + 1, UUID.randomUUID().toString());
+                    configurationList.add(tmp);
+                }
+                targetAccount.setConfigurations(configurationList);
                 repository.save(targetAccount);
+                client.publicConfigurations(registration.getAccountMail());
                 return RegistrationEnum.NEW_ACCOUNT_SEND_CONFIG;
             }
             Set<String> regids = targetAccount.getRegistrationIds();
             regids.add(registration.getRegistrationId());
             targetAccount.setRegistrationIds(regids);
             repository.save(targetAccount);
+            logger.info("[REGISTRATION] registered new device " + registration.getAccountMail());
         }
         catch (DataAccessException e){
             return RegistrationEnum.REGISTRATION_FAILED;
         }
+        logger.info("[REGISTRATION] registered new device " + registration.getAccountMail());
         return  RegistrationEnum.REGISTRATION_OK;
     }
 
