@@ -57,13 +57,14 @@ public class Registration {
                 targetAccount.setConfigurations(configurationList);
                 repository.save(targetAccount);
                 client.publicConfigurations(registration.getAccountMail());
+                logger.info("[REGISTRATION] registered new device " + registration.getAccountMail()  + " at " + new Date().getTime());
                 return RegistrationEnum.NEW_ACCOUNT_SEND_CONFIG;
             }
             Set<String> regids = targetAccount.getRegistrationIds();
             regids.add(registration.getRegistrationId());
             targetAccount.setRegistrationIds(regids);
             repository.save(targetAccount);
-            logger.info("[REGISTRATION] registered new device " + registration.getAccountMail());
+            logger.info("[REGISTRATION] registered new device " + registration.getAccountMail()  + " at " + new Date().getTime());
         }
         catch (DataAccessException e){
             return RegistrationEnum.REGISTRATION_FAILED;
