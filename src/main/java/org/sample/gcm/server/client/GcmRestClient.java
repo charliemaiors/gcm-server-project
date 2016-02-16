@@ -57,11 +57,13 @@ public class GcmRestClient {
             logger.info("[GCM-REST-CLIENT] sending to " + id + " at " + new Date().getTime());
             Message message = new Message(id,"config_push",new Long("100"),true,datas);
             HttpEntity<String> sendEntity = new HttpEntity<>(mapper.toJson(message,Message.class),headers);
+            logger.debug("MESSAGE IS " + mapper.toJson(message,Message.class));
             ResponseEntity<String> sendResponse = template.exchange(gcm.getServer(), HttpMethod.POST,sendEntity,String.class);
 
             if (sendResponse.getStatusCode() == HttpStatus.UNAUTHORIZED){
                 logger.debug("API KEY expired: " + gcm.getApiKeys());
             }
+            logger.debug("RESPONSE BODY " + sendResponse.getBody());
             responses.add(mapper.fromJson(sendResponse.getBody(),GcmResponse.class));
 
         }
