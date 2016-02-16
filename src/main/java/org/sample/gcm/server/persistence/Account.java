@@ -99,4 +99,14 @@ public class Account implements Serializable {
 
         return res;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id='" + id + '\'' +
+                ", accountMail='" + accountMail + '\'' +
+                ", registrationIds=" + registrationIds +
+                ", configurations=" + configurations +
+                '}';
+    }
 }

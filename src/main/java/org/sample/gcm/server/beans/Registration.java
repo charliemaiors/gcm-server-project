@@ -40,6 +40,7 @@ public class Registration {
         logger.info("[REGISTRATION] registering new device " + registration.getAccountMail());
         logger.debug("Received new registration " + registration.toString());
         Account targetAccount = repository.findByAccountMail(registration.getAccountMail());
+        logger.debug("DEBUG targetAccount" + targetAccount.toString());
         try {
             if (targetAccount == null) {
                 targetAccount = new Account(registration.getAccountMail());
