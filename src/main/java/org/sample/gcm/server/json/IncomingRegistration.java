@@ -31,4 +31,12 @@ public class IncomingRegistration {
     public void setRegistrationId(String registrationId) {
         this.registrationId = registrationId;
     }
+
+    @Override
+    public String toString() {
+        return "IncomingRegistration{" +
+                "accountMail='" + accountMail + '\'' +
+                ", registrationId='" + registrationId + '\'' +
+                '}';
+    }
 }
