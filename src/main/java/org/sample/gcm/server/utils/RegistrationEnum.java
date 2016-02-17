@@ -6,7 +6,6 @@ package org.sample.gcm.server.utils;
 public enum RegistrationEnum {
 
     REGISTRATION_OK,
-    NEW_ACCOUNT_SEND_CONFIG,
     REGISTRATION_FAILED
 
 }

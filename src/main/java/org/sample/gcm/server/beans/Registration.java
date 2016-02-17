@@ -56,13 +56,14 @@ public class Registration {
                 repository.save(targetAccount);
                 client.publicConfigurations(registration.getAccountMail());
                 logger.info("[REGISTRATION] registered new device " + registration.getAccountMail()  + " at " + new Date().getTime());
-                return RegistrationEnum.NEW_ACCOUNT_SEND_CONFIG;
+                return RegistrationEnum.REGISTRATION_OK;
             }
             else {
                 Set<String> regids = targetAccount.getRegistrationIds();
                 regids.add(registration.getRegistrationId());
                 targetAccount.setRegistrationIds(regids);
                 repository.save(targetAccount);
+                client.publicConfigurations(targetAccount.getAccountMail());
                 logger.info("[REGISTRATION] registered new device " + registration.getAccountMail() + " at " + new Date().getTime());
             }
         }
